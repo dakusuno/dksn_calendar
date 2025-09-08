@@ -279,6 +279,7 @@ class DksnCalendarMonthly extends StatelessWidget {
                           _controller.currentDate,
                           _controller.selectedDate,
                           d,
+                          _controller.currentDateSelected,
                         )) ??
                   DksnCalendarMonthlyItem(
                     date: d,
