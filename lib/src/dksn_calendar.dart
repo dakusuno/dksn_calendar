@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:dksn_calendar/src/dksn_calendar_controller.dart';
 import 'package:dksn_calendar/src/dksn_calendar_header.dart';
 import 'package:dksn_calendar/src/dksn_calendar_monthly_item.dart';
