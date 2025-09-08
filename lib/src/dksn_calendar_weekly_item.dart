@@ -1,5 +1,5 @@
+import 'package:dksn_calendar/dksn_calendar.dart';
 import 'package:flutter/material.dart';
-
 /// Default day item widget for the weekly calendar view.
 /// 
 /// This widget represents a single day in the weekly calendar grid.
@@ -49,7 +49,7 @@ class DksnCalendarWeeklyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: isCurrentDate
-          ? Colors.blueAccent
+          ? Theme.of(context).primaryColor
           : isDifferentMonthThanSelected
               ? Colors.grey[200]
               : Colors.white,
@@ -60,15 +60,7 @@ class DksnCalendarWeeklyItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                [
-                  'Sun',
-                  'Mon',
-                  'Tue',
-                  'Wed',
-                  'Thu',
-                  'Fri',
-                  'Sat'
-                ][date.weekday % 7],
+                DksnCalendarDateType.values[date.weekday % 7].labelDate,
                 style: TextStyle(
                   color: isCurrentDate ? Colors.white : Colors.black,
                   fontWeight:
