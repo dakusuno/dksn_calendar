@@ -1,3 +1,4 @@
+import 'package:dksn_calendar/src/dksn_calendar_type.dart';
 import 'package:flutter/cupertino.dart';
 
 /// The main theme configuration for [DksnCalendar].
@@ -48,6 +49,7 @@ class DksnCalendarMonthlyTheme {
   const DksnCalendarMonthlyTheme({
     this.dayBuilder,
     this.onDateSelected,
+    this.labelBuilder,
   });
 
   /// Custom builder for rendering individual day widgets.
@@ -72,6 +74,14 @@ class DksnCalendarMonthlyTheme {
   final void Function(
     DateTime date,
   )? onDateSelected;
+
+  /// Custom builder for rendering the current date label.
+  /// If provided, this function will be called to create a custom widget
+  /// for the current date label. The function receives:
+  /// - [type]:  The type of the current date [DksnCalendarDateType]
+  final Widget? Function(
+    DksnCalendarDateType type,
+  )? labelBuilder;
 }
 
 /// Theme configuration for the weekly calendar view.

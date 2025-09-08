@@ -1,6 +1,9 @@
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:dksn_calendar/src/dksn_calendar_controller.dart';
 import 'package:dksn_calendar/src/dksn_calendar_header.dart';
 import 'package:dksn_calendar/src/dksn_calendar_monthly_item.dart';
+import 'package:dksn_calendar/src/dksn_calendar_monthly_label.dart';
 import 'package:dksn_calendar/src/dksn_calendar_theme.dart';
 import 'package:dksn_calendar/src/dksn_calendar_type.dart';
 import 'package:dksn_calendar/src/dksn_calendar_utils.dart';
@@ -17,7 +20,7 @@ import 'package:flutter/material.dart';
 /// - Optional custom header and day builders
 ///
 /// ## Example
-/// 
+///
 /// ```dart
 /// DksnCalendar(
 ///   initialType: DksnCalendarType.monthly,
@@ -53,18 +56,18 @@ class DksnCalendar extends StatefulWidget {
   });
 
   /// The controller that manages the calendar state.
-  /// 
+  ///
   /// If not provided, a default controller will be created automatically.
   /// You can use this to programmatically control the calendar or listen to changes.
   final DksnCalendarController? controller;
 
   /// The initial view type of the calendar.
-  /// 
+  ///
   /// Defaults to [DksnCalendarType.monthly]. Can be changed later using the controller.
   final DksnCalendarType initialType;
 
   /// The theme configuration for customizing the calendar appearance.
-  /// 
+  ///
   /// Includes themes for monthly view, weekly view, and header components.
   final DksnCalendarTheme theme;
 
@@ -123,13 +126,13 @@ class _DksnCalendarState extends State<DksnCalendar> {
 }
 
 /// A weekly calendar view widget that displays a single week.
-/// 
+///
 /// This widget shows 7 days (Sunday to Saturday) for the week containing
 /// the selected date. It automatically generates the correct dates even
 /// if the selected date is in the middle of the week.
 class DksnCalendarWeekly extends StatelessWidget {
   /// Creates a weekly calendar view.
-  /// 
+  ///
   /// The [_controller] manages the calendar state and the [_theme] provides
   /// customization options for the weekly view.
   const DksnCalendarWeekly(this._controller, this._theme, {super.key});
@@ -142,7 +145,7 @@ class DksnCalendarWeekly extends StatelessWidget {
   final DksnCalendarWeeklyTheme _theme;
 
   /// Generate days for the current week starting from Sunday.
-  /// 
+  ///
   /// Returns a list of 7 [DateTime] objects representing the days of the week
   /// containing the selected date. If the selected date is Wednesday, this will
   /// return [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday].
@@ -187,13 +190,13 @@ class DksnCalendarWeekly extends StatelessWidget {
 }
 
 /// A monthly calendar view widget that displays a full month grid.
-/// 
+///
 /// This widget shows a complete month with weeks arranged in a grid format.
 /// It includes days from the previous and next month to fill complete weeks,
 /// ensuring a consistent 6-week grid layout.
 class DksnCalendarMonthly extends StatelessWidget {
   /// Creates a monthly calendar view.
-  /// 
+  ///
   /// The [_controller] manages the calendar state and the [_theme] provides
   /// customization options for the monthly view.
   const DksnCalendarMonthly(this._controller, this._theme, {super.key});
@@ -205,12 +208,12 @@ class DksnCalendarMonthly extends StatelessWidget {
   final DksnCalendarMonthlyTheme _theme;
 
   /// Generate all dates for the monthly calendar view.
-  /// 
+  ///
   /// Returns a list of [DateTime] objects that includes:
   /// - Days from the previous month to fill the beginning of the first week
   /// - All days of the current month
   /// - Days from the next month to fill the end of the last week
-  /// 
+  ///
   /// The result is always a multiple of 7 days to create complete weeks.
   List<DateTime> get _generatedDate {
     final weekCount = _controller.selectedDate.startOfMonth.weekday == 7
@@ -259,10 +262,11 @@ class DksnCalendarMonthly extends StatelessWidget {
           shrinkWrap: true,
           children: [
             ...days.map(
-              (d) => Card(
-                color: Colors.grey[300],
-                child: Center(child: Text(d.labelDate)),
-              ),
+              (d) =>
+                  _theme.labelBuilder?.call(d) ??
+                  DksnCalendarMonthlyLabel(
+                    type: d,
+                  ),
             ),
           ],
         ),
