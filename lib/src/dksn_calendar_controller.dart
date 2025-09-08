@@ -10,6 +10,8 @@ import 'dksn_calendar_type.dart';
 /// - Current date for highlighting
 /// - Date selection events
 /// - Navigation between months/weeks
+/// - Type change notifications
+/// - Selected date change notifications
 /// 
 /// ## Example
 /// 
@@ -19,9 +21,19 @@ import 'dksn_calendar_type.dart';
 ///   DateTime.now(),
 /// );
 /// 
-/// // Listen to changes
+/// // Listen to general changes
 /// controller.addListener(() {
 ///   print('Selected date: ${controller.selectedDate}');
+/// });
+/// 
+/// // Listen specifically to type changes
+/// controller.addTypeChangeListener((newType) {
+///   print('Calendar type changed to: $newType');
+/// });
+/// 
+/// // Listen specifically to selected date changes
+/// controller.addSelectedDateChangeListener((newDate) {
+///   print('Selected date changed to: $newDate');
 /// });
 /// 
 /// // Navigate to next month/week
@@ -29,6 +41,12 @@ import 'dksn_calendar_type.dart';
 /// 
 /// // Select a specific date
 /// controller.currentDateSelected(DateTime.now());
+/// 
+/// // Change calendar type
+/// controller.setType(DksnCalendarType.weekly);
+/// 
+/// // Change selected date
+/// controller.setSelectedDate(DateTime(2025, 10, 15));
 /// ```
 class DksnCalendarController extends ChangeNotifier {
   /// Creates a new calendar controller.
@@ -46,6 +64,12 @@ class DksnCalendarController extends ChangeNotifier {
   /// The current view type of the calendar.
   DksnCalendarType _type;
 
+  /// List of listeners that will be called when the calendar type changes.
+  final List<ValueChanged<DksnCalendarType>> _typeChangeListeners = [];
+
+  /// List of listeners that will be called when the selected date changes.
+  final List<ValueChanged<DateTime>> _selectedDateChangeListeners = [];
+
   /// Gets the current calendar view type.
   DksnCalendarType get type => _type;
 
@@ -61,6 +85,50 @@ class DksnCalendarController extends ChangeNotifier {
   /// Gets the currently selected/highlighted date.
   /// Gets the currently selected/highlighted date.
   DateTime get currentDate => _currentDate;
+
+  /// Adds a listener for calendar type changes.
+  /// 
+  /// The [listener] will be called whenever the calendar type changes.
+  /// The listener receives the new [DksnCalendarType] as a parameter.
+  void addTypeChangeListener(ValueChanged<DksnCalendarType> listener) {
+    _typeChangeListeners.add(listener);
+  }
+
+  /// Removes a previously added type change listener.
+  /// 
+  /// The [listener] must be the same instance that was added via [addTypeChangeListener].
+  void removeTypeChangeListener(ValueChanged<DksnCalendarType> listener) {
+    _typeChangeListeners.remove(listener);
+  }
+
+  /// Notifies all type change listeners about the new type.
+  void _notifyTypeChangeListeners() {
+    for (final listener in _typeChangeListeners) {
+      listener(_type);
+    }
+  }
+
+  /// Adds a listener for selected date changes.
+  /// 
+  /// The [listener] will be called whenever the selected date changes.
+  /// The listener receives the new [DateTime] as a parameter.
+  void addSelectedDateChangeListener(ValueChanged<DateTime> listener) {
+    _selectedDateChangeListeners.add(listener);
+  }
+
+  /// Removes a previously added selected date change listener.
+  /// 
+  /// The [listener] must be the same instance that was added via [addSelectedDateChangeListener].
+  void removeSelectedDateChangeListener(ValueChanged<DateTime> listener) {
+    _selectedDateChangeListeners.remove(listener);
+  }
+
+  /// Notifies all selected date change listeners about the new selected date.
+  void _notifySelectedDateChangeListeners() {
+    for (final listener in _selectedDateChangeListeners) {
+      listener(_selectedDate);
+    }
+  }
 
   /// Handles date selection and automatic navigation.
   /// 
@@ -97,6 +165,7 @@ class DksnCalendarController extends ChangeNotifier {
   void setType(DksnCalendarType type) {
     if (_type != type) {
       _type = type;
+      _notifyTypeChangeListeners();
       notifyListeners();
     }
   }
@@ -110,6 +179,7 @@ class DksnCalendarController extends ChangeNotifier {
   void setSelectedDate(DateTime date) {
     if (_selectedDate != date) {
       _selectedDate = date;
+      _notifySelectedDateChangeListeners();
       notifyListeners();
     }
   }
@@ -127,6 +197,7 @@ class DksnCalendarController extends ChangeNotifier {
     } else {
       _selectedDate = _selectedDate.add(const Duration(days: 7));
     }
+    _notifySelectedDateChangeListeners();
     notifyListeners();
   }
 
@@ -143,6 +214,14 @@ class DksnCalendarController extends ChangeNotifier {
     } else {
       _selectedDate = _selectedDate.subtract(const Duration(days: 7));
     }
+    _notifySelectedDateChangeListeners();
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _typeChangeListeners.clear();
+    _selectedDateChangeListeners.clear();
+    super.dispose();
   }
 }
