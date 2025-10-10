@@ -29,7 +29,6 @@ void main() {
           home: Scaffold(
             body: DksnCalendar(
               controller: controller,
-              initialType: DksnCalendarType.monthly,
             ),
           ),
         ),
@@ -63,7 +62,7 @@ void main() {
     });
 
     testWidgets('displays with custom theme', (tester) async {
-      bool dayBuilderCalled = false;
+      var dayBuilderCalled = false;
       
       await tester.pumpWidget(
         MaterialApp(
@@ -128,7 +127,7 @@ void main() {
     });
 
     testWidgets('uses custom header builder when provided', (tester) async {
-      bool headerBuilderCalled = false;
+      var headerBuilderCalled = false;
       
       await tester.pumpWidget(
         MaterialApp(

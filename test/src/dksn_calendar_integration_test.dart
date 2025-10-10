@@ -17,7 +17,6 @@ void main() {
           home: Scaffold(
             body: DksnCalendar(
               controller: controller,
-              initialType: DksnCalendarType.monthly,
             ),
           ),
         ),
@@ -92,8 +91,8 @@ void main() {
         DateTime(2025, 9, 6),
       );
 
-      bool headerBuilderCalled = false;
-      bool dayBuilderCalled = false;
+      var headerBuilderCalled = false;
+      var dayBuilderCalled = false;
 
       await tester.pumpWidget(
         MaterialApp(

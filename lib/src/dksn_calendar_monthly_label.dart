@@ -2,7 +2,7 @@ import 'package:dksn_calendar/dksn_calendar.dart';
 import 'package:flutter/material.dart';
 
 class  DksnCalendarMonthlyLabel extends StatelessWidget {
-  const DksnCalendarMonthlyLabel({super.key, required this.type});
+  const DksnCalendarMonthlyLabel({required this.type, super.key});
   final DksnCalendarDateType type;
 
   @override

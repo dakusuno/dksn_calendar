@@ -1,3 +1,6 @@
+import 'package:dksn_calendar/dksn_calendar.dart' show DksnCalendar;
+import 'package:dksn_calendar/src/dksn_calendar.dart' show DksnCalendar;
+
 /// Defines the view types supported by [DksnCalendar].
 /// 
 /// The calendar can display in two different modes:

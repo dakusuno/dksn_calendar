@@ -99,8 +99,8 @@ void main() {
     });
 
     test('can be instantiated with both dayBuilder and onDateSelected', () {
-      bool dayBuilderCalled = false;
-      bool callbackCalled = false;
+      var dayBuilderCalled = false;
+      var callbackCalled = false;
 
       final theme = DksnCalendarMonthlyTheme(
         dayBuilder: (currentDate, selectedDate, date) {
@@ -246,7 +246,7 @@ void main() {
     });
 
     test('can be instantiated with custom label builder', () {
-      bool labelBuilderCalled = false;
+      var labelBuilderCalled = false;
 
       Widget customLabelBuilder(DateTime date, void Function() previous, void Function() next) {
         labelBuilderCalled = true;
@@ -338,16 +338,13 @@ void main() {
     test('themes support null callbacks gracefully', () {
       final theme = DksnCalendarTheme(
         monthly: DksnCalendarMonthlyTheme(
-          dayBuilder: null,
-          onDateSelected: null,
+          
         ),
         weekly: DksnCalendarWeeklyTheme(
-          dayBuilder: null,
-          onDateSelected: null,
+          
         ),
         header: DksnCalendarHeaderTheme(
-          label: null,
-          labelBuilder: null,
+          
         ),
       );
 

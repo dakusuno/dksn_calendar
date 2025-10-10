@@ -23,13 +23,13 @@ void main() {
         final january = DateTime(2025, 1, 15).startOfMonth;
         final december = DateTime(2025, 12, 31).startOfMonth;
         
-        expect(january, DateTime(2025, 1, 1));
-        expect(december, DateTime(2025, 12, 1));
+        expect(january, DateTime(2025));
+        expect(december, DateTime(2025, 12));
       });
 
       test('works for leap year February', () {
         final leapYear = DateTime(2024, 2, 29).startOfMonth;
-        expect(leapYear, DateTime(2024, 2, 1));
+        expect(leapYear, DateTime(2024, 2));
       });
     });
 
@@ -71,7 +71,7 @@ void main() {
     group('startOfWeek', () {
       test('returns Sunday for any day of the week', () {
         // Test each day of the week (September 2025)
-        final monday = DateTime(2025, 9, 1);    // Monday
+        final monday = DateTime(2025, 9);    // Monday
         final tuesday = DateTime(2025, 9, 2);   // Tuesday  
         final wednesday = DateTime(2025, 9, 3); // Wednesday
         final thursday = DateTime(2025, 9, 4);  // Thursday
@@ -100,7 +100,7 @@ void main() {
       });
 
       test('handles week boundaries across months', () {
-        final date = DateTime(2025, 9, 1); // Monday, Sept 1
+        final date = DateTime(2025, 9); // Monday, Sept 1
         final startOfWeek = date.startOfWeek;
         
         expect(startOfWeek.month, 8); // Should be in August
@@ -216,12 +216,12 @@ void main() {
         
         expect(leapYearFeb.nextDay.month, 3);
         expect(leapYearFeb.nextDay.day, 1);
-        expect(leapYearFeb.startOfMonth, DateTime(2024, 2, 1));
+        expect(leapYearFeb.startOfMonth, DateTime(2024, 2));
       });
 
       test('handles daylight saving time transitions', () {
         // Note: This test assumes UTC or a timezone without DST
-        final beforeDST = DateTime(2025, 3, 8, 12, 0);
+        final beforeDST = DateTime(2025, 3, 8, 12);
         final nextDay = beforeDST.nextDay;
         
         expect(nextDay.day, 9);
@@ -229,9 +229,9 @@ void main() {
       });
 
       test('handles very early dates', () {
-        final earlyDate = DateTime(1900, 1, 1);
+        final earlyDate = DateTime(1900);
         
-        expect(earlyDate.startOfMonth, DateTime(1900, 1, 1));
+        expect(earlyDate.startOfMonth, DateTime(1900));
         expect(earlyDate.nextDay, DateTime(1900, 1, 2));
       });
 

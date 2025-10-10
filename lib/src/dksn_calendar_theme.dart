@@ -1,3 +1,5 @@
+import 'package:dksn_calendar/dksn_calendar.dart' show DksnCalendar;
+import 'package:dksn_calendar/src/dksn_calendar.dart' show DksnCalendar;
 import 'package:dksn_calendar/src/dksn_calendar_type.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -58,7 +60,7 @@ class DksnCalendarMonthlyTheme {
   /// to create a custom widget. The function receives:
   /// - [currentDate]: The currently highlighted/selected date
   /// - [selectedDate]: The date used for navigation (current month/week)
-  /// - [date]: The date being rendered
+  /// - [eventBeginDate]: The date being rendered
   /// 
   /// Return `null` to use the default day widget.
   final Widget? Function(
@@ -101,7 +103,7 @@ class DksnCalendarWeeklyTheme {
   /// to create a custom widget. The function receives:
   /// - [currentDate]: The currently highlighted/selected date
   /// - [selectedDate]: The date used for navigation (current month/week)
-  /// - [date]: The date being rendered
+  /// - [eventBeginDate]: The date being rendered
   /// 
   /// Return `null` to use the default day widget.
   final Widget? Function(
@@ -160,7 +162,7 @@ class DksnCalendarHeaderTheme {
   /// 
   /// If provided, this completely replaces the default header.
   /// The function receives:
-  /// - [date]: The current selected date
+  /// - [eventBeginDate]: The current selected date
   /// - [previous]: Function to navigate to previous month/week
   /// - [next]: Function to navigate to next month/week
   /// 

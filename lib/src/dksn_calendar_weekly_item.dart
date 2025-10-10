@@ -15,11 +15,7 @@ class DksnCalendarWeeklyItem extends StatelessWidget {
   /// The [currentDate] is used to highlight the current date.
   /// The [onSelectedDate] callback is called when this day is tapped.
   const DksnCalendarWeeklyItem({
-    super.key,
-    required this.date,
-    required this.selectedDate,
-    required this.currentDate,
-    required this.onSelectedDate,
+    required this.date, required this.selectedDate, required this.currentDate, required this.onSelectedDate, super.key,
   });
 
   /// The date this item represents.
@@ -48,6 +44,7 @@ class DksnCalendarWeeklyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+
       color: isCurrentDate
           ? Theme.of(context).primaryColor
           : isDifferentMonthThanSelected

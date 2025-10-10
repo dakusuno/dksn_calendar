@@ -117,7 +117,7 @@ class _DksnCalendarState extends State<DksnCalendar> {
             DksnCalendarWeekly(_controller, widget.theme.weekly),
           DksnCalendarType.monthly =>
             DksnCalendarMonthly(_controller, widget.theme.monthly),
-        }
+        },
       ],
     );
   }
@@ -161,6 +161,7 @@ class DksnCalendarWeekly extends StatelessWidget {
     return Column(
       children: [
         GridView.count(
+          padding: EdgeInsets.zero,
           crossAxisCount: 7,
           shrinkWrap: true,
           children: [
@@ -253,19 +254,20 @@ class DksnCalendarMonthly extends StatelessWidget {
     const days = DksnCalendarDateType.values;
 
     return Column(
-      spacing: 8,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: days
               .map(
-                (d) => _theme.labelBuilder?.call(d) ??
+                (d) =>
+                    _theme.labelBuilder?.call(d) ??
                     DksnCalendarMonthlyLabel(type: d),
               )
               .toList(),
         ),
         GridView.count(
           crossAxisCount: 7,
+          padding: EdgeInsets.zero,
           shrinkWrap: true,
           children: [
             ..._generatedDate.map(

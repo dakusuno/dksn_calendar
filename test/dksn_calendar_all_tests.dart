@@ -12,13 +12,15 @@
 /// 
 /// Run all tests with: flutter test
 /// Run specific test file with: flutter test test/src/specific_test.dart
+library;
 
-import 'src/dksn_calendar_test.dart' as calendar_widget_tests;
+
 import 'src/dksn_calendar_controller_test.dart' as controller_tests;
-import 'src/dksn_calendar_utils_test.dart' as utils_tests;
-import 'src/dksn_calendar_type_test.dart' as type_tests;
-import 'src/dksn_calendar_theme_test.dart' as theme_tests;
 import 'src/dksn_calendar_integration_test.dart' as integration_tests;
+import 'src/dksn_calendar_test.dart' as calendar_widget_tests;
+import 'src/dksn_calendar_theme_test.dart' as theme_tests;
+import 'src/dksn_calendar_type_test.dart' as type_tests;
+import 'src/dksn_calendar_utils_test.dart' as utils_tests;
 
 void main() {
   // Run all test suites

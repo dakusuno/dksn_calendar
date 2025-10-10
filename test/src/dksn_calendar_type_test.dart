@@ -41,7 +41,7 @@ void main() {
     });
 
     test('contains all days of the week', () {
-      final days = DksnCalendarDateType.values;
+      const days = DksnCalendarDateType.values;
       expect(days.contains(DksnCalendarDateType.sunday), isTrue);
       expect(days.contains(DksnCalendarDateType.monday), isTrue);
       expect(days.contains(DksnCalendarDateType.tuesday), isTrue);
@@ -62,7 +62,7 @@ void main() {
     });
 
     test('days are in correct order (Sunday first)', () {
-      final days = DksnCalendarDateType.values;
+      const days = DksnCalendarDateType.values;
       expect(days[0], DksnCalendarDateType.sunday);
       expect(days[1], DksnCalendarDateType.monday);
       expect(days[2], DksnCalendarDateType.tuesday);
@@ -134,7 +134,7 @@ void main() {
 
   group('Integration Tests', () {
     test('DksnCalendarDateType can be used to create week structures', () {
-      final weekDays = DksnCalendarDateType.values;
+      const weekDays = DksnCalendarDateType.values;
       final weekStructure = <String, bool>{};
       
       for (final day in weekDays) {

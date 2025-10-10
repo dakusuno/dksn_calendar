@@ -40,7 +40,7 @@ void main() {
 
     group('Type Management', () {
       test('setType changes calendar type and notifies listeners', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -54,7 +54,7 @@ void main() {
       });
 
       test('setType does not notify listeners when type is same', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -67,7 +67,7 @@ void main() {
 
     group('Date Selection', () {
       test('setSelectedDate updates date and notifies listeners', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         final newDate = DateTime(2025, 10, 15);
         
         controller.addListener(() {
@@ -81,7 +81,7 @@ void main() {
       });
 
       test('setSelectedDate does not notify when date is same', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -92,7 +92,7 @@ void main() {
       });
 
       test('currentDateSelected updates current date and notifies listeners', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         final newDate = DateTime(2025, 9, 15);
         
         controller.addListener(() {
@@ -142,7 +142,7 @@ void main() {
 
     group('Navigation', () {
       test('next() moves to next month in monthly view', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -156,7 +156,7 @@ void main() {
 
       test('next() moves to next week in weekly view', () {
         controller.setType(DksnCalendarType.weekly);
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -170,7 +170,7 @@ void main() {
       });
 
       test('previous() moves to previous month in monthly view', () {
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -184,7 +184,7 @@ void main() {
 
       test('previous() moves to previous week in weekly view', () {
         controller.setType(DksnCalendarType.weekly);
-        bool listenerCalled = false;
+        var listenerCalled = false;
         controller.addListener(() {
           listenerCalled = true;
         });
@@ -216,7 +216,7 @@ void main() {
 
     group('Listener Management', () {
       test('listeners are properly notified', () {
-        int callCount = 0;
+        var callCount = 0;
         controller.addListener(() {
           callCount++;
         });
@@ -229,7 +229,7 @@ void main() {
       });
 
       test('removed listeners are not called', () {
-        int callCount = 0;
+        var callCount = 0;
         void listener() {
           callCount++;
         }
@@ -247,7 +247,7 @@ void main() {
     group('Type Change Listeners', () {
       test('addTypeChangeListener and removeTypeChangeListener work correctly', () {
         DksnCalendarType? receivedType;
-        int callCount = 0;
+        var callCount = 0;
 
         void typeListener(DksnCalendarType type) {
           receivedType = type;
@@ -281,7 +281,8 @@ void main() {
 
       test('multiple type change listeners work correctly', () {
         final receivedTypes = <DksnCalendarType>[];
-        int callCount1 = 0, callCount2 = 0;
+        var callCount1 = 0;
+        var callCount2 = 0;
 
         void listener1(DksnCalendarType type) {
           receivedTypes.add(type);
@@ -312,7 +313,7 @@ void main() {
       });
 
       test('dispose clears type change listeners', () {
-        int callCount = 0;
+        var callCount = 0;
         
         void typeListener(DksnCalendarType type) {
           callCount++;
@@ -341,7 +342,7 @@ void main() {
     group('Selected Date Change Listeners', () {
       test('addSelectedDateChangeListener and removeSelectedDateChangeListener work correctly', () {
         DateTime? receivedDate;
-        int callCount = 0;
+        var callCount = 0;
 
         void dateListener(DateTime date) {
           receivedDate = date;
@@ -399,7 +400,8 @@ void main() {
       test('multiple selected date change listeners work correctly', () {
         final receivedDates1 = <DateTime>[];
         final receivedDates2 = <DateTime>[];
-        int callCount1 = 0, callCount2 = 0;
+        var callCount1 = 0;
+        var callCount2 = 0;
 
         void listener1(DateTime date) {
           receivedDates1.add(date);
@@ -416,7 +418,7 @@ void main() {
         controller.addSelectedDateChangeListener(listener2);
 
         // Change selected date should trigger both listeners
-        final testDate = DateTime(2025, 12, 1);
+        final testDate = DateTime(2025, 12);
         controller.setSelectedDate(testDate);
         expect(callCount1, 1);
         expect(callCount2, 1);
@@ -435,14 +437,14 @@ void main() {
       });
 
       test('dispose clears selected date change listeners', () {
-        int callCount = 0;
+        var callCount = 0;
         
         void dateListener(DateTime date) {
           callCount++;
         }
 
         controller.addSelectedDateChangeListener(dateListener);
-        controller.setSelectedDate(DateTime(2025, 10, 1));
+        controller.setSelectedDate(DateTime(2025, 10));
         expect(callCount, 1);
 
         // Create new controller to test dispose behavior
@@ -450,14 +452,14 @@ void main() {
         newController.addSelectedDateChangeListener(dateListener);
         
         // Change date before dispose to verify listener works
-        newController.setSelectedDate(DateTime(2025, 11, 1));
+        newController.setSelectedDate(DateTime(2025, 11));
         expect(callCount, 2);
         
         // Dispose should clear listeners and make controller unusable
         newController.dispose();
         
         // Trying to use disposed controller should throw
-        expect(() => newController.setSelectedDate(DateTime(2025, 12, 1)), throwsFlutterError);
+        expect(() => newController.setSelectedDate(DateTime(2025, 12)), throwsFlutterError);
       });
 
       test('selected date listener works with navigation methods', () {

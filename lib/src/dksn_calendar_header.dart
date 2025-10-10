@@ -1,4 +1,6 @@
 
+import 'package:dksn_calendar/dksn_calendar.dart' show DksnCalendar;
+import 'package:dksn_calendar/src/dksn_calendar.dart' show DksnCalendar;
 import 'package:dksn_calendar/src/dksn_calendar_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +19,8 @@ class DksnCalendarHeader extends StatelessWidget {
   /// The [previous] and [next] functions handle navigation.
   /// The [theme] allows customization of the header appearance.
   const DksnCalendarHeader({
-    super.key,
+    required this.selectedDate, required this.previous, required this.next, super.key,
     this.theme = const DksnCalendarHeaderTheme(),
-    required this.selectedDate,
-    required this.previous,
-    required this.next,
   });
 
   /// Theme configuration for customizing the header appearance.

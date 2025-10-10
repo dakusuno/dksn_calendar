@@ -1,6 +1,8 @@
+import 'package:dksn_calendar/dksn_calendar.dart' show DksnCalendar;
+import 'package:dksn_calendar/src/dksn_calendar.dart' show DksnCalendar;
+import 'package:dksn_calendar/src/dksn_calendar_type.dart';
 import 'package:dksn_calendar/src/dksn_calendar_utils.dart';
 import 'package:flutter/foundation.dart';
-import 'dksn_calendar_type.dart';
 
 /// A controller that manages the state of a [DksnCalendar] widget.
 /// 
@@ -193,7 +195,7 @@ class DksnCalendarController extends ChangeNotifier {
   void next() {
     if (_type == DksnCalendarType.monthly) {
       _selectedDate = DateTime(
-          _selectedDate.year, _selectedDate.month + 1, _selectedDate.day);
+          _selectedDate.year, _selectedDate.month + 1, _selectedDate.day,);
     } else {
       _selectedDate = _selectedDate.add(const Duration(days: 7));
     }
@@ -210,7 +212,7 @@ class DksnCalendarController extends ChangeNotifier {
   void previous() {
     if (_type == DksnCalendarType.monthly) {
       _selectedDate = DateTime(
-          _selectedDate.year, _selectedDate.month - 1, _selectedDate.day);
+          _selectedDate.year, _selectedDate.month - 1, _selectedDate.day,);
     } else {
       _selectedDate = _selectedDate.subtract(const Duration(days: 7));
     }
